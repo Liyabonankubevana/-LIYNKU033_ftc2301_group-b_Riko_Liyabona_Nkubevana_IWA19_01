@@ -27,18 +27,10 @@ const dataSearchAuthors = document.querySelector('[data-search-authors]');
 
 
 
-if (!books && !Array.isArray(books)) throw new Error('Source required') 
-if (!range && range.length < 2) throw new Error('Range must be an array with two numbers')
+if (!matches || !Array.isArray(matches)) {throw new Error('Source required')};
 
- const day = {
-    dark: '10, 10, 20',
-    light: '255, 255, 255',
-}
+if (!range || range.length < 2) {throw new Error('Range must be an array with two numbers')};
 
- const night = {
-    dark: '255, 255, 255',
-    light: '10, 10, 20',
-}
 
 // slice the first 36 books to show
 
@@ -98,8 +90,6 @@ for ([id, name]; Object.entries(authors); id++) {
 dataSearchAuthors.appendChild(authors)
 
 
-dataSettingsTheme.value === window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day'
-
 
 
 /*
@@ -107,24 +97,55 @@ dataSettingsTheme.value === window.matchMedia && window.matchMedia('(prefers-col
  *
 */
 
-
-// Create a CSS variable and create a object
-const css = {
-    day: {
-        dark: '10, 10, 20',
-        light: '255, 255, 255',},
-    night: {
-        dark: '255, 255, 255',
-        light: '10, 10, 20',}
+const day = {
+    dark: '10, 10, 20',
+    light: '255, 255, 255',
 }
 
+ const night = {
+    dark: '255, 255, 255',
+    light: '10, 10, 20',
+}
+
+// Create a CSS variable and create a object
+
+
+const data = (event) => {
+    event.preventDefault();
+    const css = {
+        day: {
+            dark: '10, 10, 20',
+            light: '255, 255, 255',},
+        night: {
+            dark: '255, 255, 255',
+            light: '10, 10, 20',}
+    }
+    document.documentElement.style.setProperty('--color-dark', css[result.theme].dark);
+    document.documentElement.style.setProperty('--color-light', css[result.theme].light);
+}
 // Make V a const var and fixed the ternary expression used a colon instead of | for true case.
-const v = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day';
-document.documentElement.style.setProperty('--color-dark', css[v].dark);
-document.documentElement.style.setProperty('--color-light', css[v].light);
+// const v = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day';
+// document.documentElement.style.setProperty('--color-dark', css[v].dark);
+// document.documentElement.style.setProperty('--color-light', css[v].light);
 
+// dataSettingsOverlay.submit; {
+//     preventDefault()
+//     const formData = new FormData(event.target)
+//     const result = Object.fromEntries(formData)
+//     document.documentElement.style.setProperty('--color-dark', css[result.theme].dark);
+//     document.documentElement.style.setProperty('--color-light', css[result.theme].light);
+//     dataSettingsOverlay.open === false
+// }
 
+// dataSettingsTheme.value === window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day'
 
+/*
+*
+*Different section
+*
+*/
+
+// Data list event listener 
 dataListButton = "Show more (books.length - BOOKS_PER_PAGE)"
 
 
@@ -148,6 +169,9 @@ dataListButton.click() {
     actions.list.updateRemaining()
     page = page + 1
 }
+
+
+// Search engine 
 
 dataHeaderSearch.click() {
     data-search-overlay.open === true ;
@@ -217,17 +241,9 @@ dataSearchForm.click(filters) {
     dataSearchOverlay.open = false
 }
 
-dataSettingsOverlay.submit; {
-    preventDefault()
-    const formData = new FormData(event.target)
-    const result = Object.fromEntries(formData)
-    document.documentElement.style.setProperty('--color-dark', css[result.theme].dark);
-    document.documentElement.style.setProperty('--color-light', css[result.theme].light);
-    dataSettingsOverlay.open === false
-}
 
+// Data list event listener 
 
-// Event 
 dataListItems.click() {
     pathArray = Array.from(event.path || event.composedPath())
     active;
