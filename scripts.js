@@ -43,12 +43,79 @@ const saveElement = document.querySelector('[data-settings-save]');
 const matches = books;
 let page = 1;
 
-// // Need to create variables
-const range = [0, 36]; 
+if (!books && !Array.isArray(books)) throw new Error('Source required') 
+if (!range && range.length < 2) throw new Error('Range must be an array with two numbers')
 
-if (!matches || !Array.isArray(matches)) throw new Error('Source required');
+ const day = {
+    dark: '10, 10, 20',
+    light: '255, 255, 255',
+}
 
-if (!range || range.length < 2) throw new Error('Range must be an array with two numbers');
+ const night = {
+    dark: '255, 255, 255',
+    light: '10, 10, 20',
+}
+
+// slice the first 36 books to show
+
+fragment = document.createDocumentFragment()
+extracted = books.slice(0, 36)
+
+// // loop over the extracted books and create previews for each one
+for ( i = 0 ; extracted.length; i++) {
+    const preview = createPreview {
+        author,
+        id,
+        image,
+        title
+    }
+    fragment.appendChild(preview)
+}
+
+
+dataListItems.appendChild(fragment)
+
+
+const genres = document.createDocumentFragment()
+
+const element = document.createElement('option')
+element.value = 'any'
+element = 'All Genres'
+genres.appendChild(element)
+
+
+for ([id, name]; Object.entries(genres); i++) {
+    document.createElement('option')
+    element.value = value
+    element.innerText = text
+    genres.appendChild(element)
+}
+
+
+dataSearchGenres.appendChild(genres)
+
+
+authors = document.createDocumentFragment()
+
+
+element = document.createElement('option')
+element.value = 'any'
+element.innerText = 'All Authors'
+authors.appendChild(element)
+
+// loop over the authors object and create an option element for each one
+for ([id, name]; Object.entries(authors); id++) {
+    document.createElement('option')
+    element.value = value
+    element = text
+    authors.appendChild(element)
+}
+
+dataSearchAuthors.appendChild(authors)
+
+
+dataSettingsTheme.value === window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day'
+
 
 
 /*
@@ -57,15 +124,74 @@ if (!range || range.length < 2) throw new Error('Range must be an array with two
  * 
  */
 
-dataSearchAuthors.appendChild(authors)
 
-let fragment = document.createDocumentFragment(books, 0, BOOKS_PER_PAGE)
-let extracted = books.slice(0, 36)
+// Create a CSS variable and create a object
+const css = {
+    day: {
+        dark: '10, 10, 20',
+        light: '255, 255, 255',},
+    night: {
+        dark: '255, 255, 255',
+        light: '10, 10, 20',}
+}
 
-const UpDateButton = () => {
-    const remaining = books.length - (page * BOOKS_PER_PAGE);
-    const remainingText = remaining > 0 ? `(${remaining})` : '';
-    const buttonText = `Show more ${remainingText}`;
+// Make V a const var and fixed the ternary expression used a colon instead of | for true case.
+const v = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day';
+document.documentElement.style.setProperty('--color-dark', css[v].dark);
+document.documentElement.style.setProperty('--color-light', css[v].light);
+
+
+
+dataListButton = "Show more (books.length - BOOKS_PER_PAGE)"
+
+
+dataListButton.disabled = !(matches.length - [page * BOOKS_PER_PAGE] > 0)
+
+
+dataListButton.innerHTML = /* html */ [
+    '<span>Show more</span>',
+    '<span class="list__remaining"> (${matches.length - [page * BOOKS_PER_PAGE] > 0 ? matches.length - [page * BOOKS_PER_PAGE] : 0})</span>',
+]
+
+dataSearchCancel.click() { dataSearchOverlay.open === false }
+
+
+dataSettingsCancel.click() { querySelect(dataSettingsOverlay).open === false }
+dataSettingsForm.submit() { actions.settings.submit }
+dataListClose.click() { data-list-active.open === false }
+
+dataListButton.click() {
+    document.querySelector('[data-list-items]').appendChild(createPreviewsFragment(matches, page x BOOKS_PER_PAGE, {page + 1} x BOOKS_PER_PAGE]))
+    actions.list.updateRemaining()
+    page = page + 1
+}
+
+dataHeaderSearch.click() {
+    data-search-overlay.open === true ;
+    data-search-title.focus();
+}
+
+dataSearchForm.click(filters) {
+    preventDefault()
+    const formData = new FormData(event.target)
+    const filters = Object.fromEntries(formData)
+    result = []
+
+    for (book; booksList; i++) {
+        titleMatch = filters.title.trim() = '' && book.title.toLowerCase().includes[filters.title.toLowerCase()]
+        authorMatch = filters.author = 'any' || book.author === filters.author
+
+        {
+            genreMatch = filters.genre = 'any'
+            for (genre; book.genres; i++) { if singleGenre = filters.genre { genreMatch === true }}}
+        }
+
+        if titleMatch && authorMatch && genreMatch => result.push(book)
+    }
+
+    if display.length < 1 
+    data-list-message.class.add('list__message_show')
+    else data-list-message.class.remove('list__message_show')
     
     dataListButton.disabled = !(remaining > 0);
     dataListButton.innerHTML = buttonText;
@@ -88,138 +214,35 @@ const initializePreview = ({authors, id, image, title }) => {
         </div>
     `
 
-    return booksExtract
-};
+        fragment.appendChild(element)
+    }
+    
+    dataListItems.appendChild(fragments)
+    initial === matches.length - [page * BOOKS_PER_PAGE]
+    remaining === hasRemaining ? initial : 0
+    dataListButton.disabled = initial > 0
 
-dataListItems.appendChild(fragment) 
+    dataListButton.innerHTML = /* html */ `
+        <span>Show more</span>
+        <span class="list__remaining"> (${remaining})</span>
+    `
 
-const createPreviewsList = (list)=>{
-    list.map((book)=>{
-        const {author, image, id, title } = book
-        const preview = createPreview({
-            author,
-            id,
-            image, 
-            title
-        })
-        fragment.appendChild(preview)
-    })
-    dataListItems.appendChild(fragment)
-    UpDateButton();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    dataSearchOverlay.open = false
 }
 
-//Calling the CreatePreviews to show the first 36 books
-createPreviewsList(extracted);
-
-const DropFragment = (items, dropdownText) => {
-    const fragment = document.createDocumentFragment()
-    const dropdown = document.createElement('option')
-    dropdown.value = 'any';
-    dropdown.innerText = dropdownText;
-    dropdown.selected = true;
-    fragment.appendChild(dropdown);
-  
-    const itemArray = Object.entries(items);
-  
-    itemArray.map((item)=>{
-        const option = document.createElement('option')
-        option.value = item[0]
-        option.innerText = item[1]
-        fragment.appendChild(option)
-    })
-  
-    return fragment
-  }
-  
-  // Create Genres drop-down
-const genresFragment = DropFragment(genres, 'All Genres')
-dataSearchGenres.appendChild(genresFragment)
-  
-// Create Authors drop-down
-const authorsFragment = DropFragment(authors, 'All Authors')
-dataSearchAuthors.appendChild(authorsFragment)
-    
-  
-// Create handler for when show more is pressed
-dataListButton.addEventListener("click", ()=> {
-    const firstIndex = page * BOOKS_PER_PAGE;
-    const lastIndex =(page + 1 ) * BOOKS_PER_PAGE;
-    createPreviewsFragment(firstIndex, lastIndex)
-});
-
-dataSearchCancel.addEventListener("click", ()=>{
-    dataSearchOverlay.open = false;
-});
-// EventListener handling when button is closed
-dataListClose.addEventListener("click", ()=>{
-    dataListActive.open = false;
-});
-
-// Previews functions when button is pressed
-
-const createPreviewsFragment = (oldBooks, newBooks ) => {
-    const newExtractedBook = books.slice(oldBooks, newBooks)
-    page = page + 1
-    createPreviewsList(newExtractedBook)
-};
-
-dataHeaderSearch.addEventListener("click", ()=>{
-    dataSearchOverlay.open = true ;
-}); 
+dataSettingsOverlay.submit; {
+    preventDefault()
+    const formData = new FormData(event.target)
+    const result = Object.fromEntries(formData)
+    document.documentElement.style.setProperty('--color-dark', css[result.theme].dark);
+    document.documentElement.style.setProperty('--color-light', css[result.theme].light);
+    dataSettingsOverlay.open === false
+}
 
 
-/*
- * Filtering Book Search event listener
- *
- * 
- */
-
-datasearchButton.addEventListener("click",(event) => {
-    event.preventDefault();
-
-    const formData = new FormData(dataSearchForm);
-    const title = formData.get('title');
-    const author = formData.get('author');
-    const genre = formData.get('genre');
-    let result = [];
-
-    if ((author !== "any" || genre !== "any") && title.trim() !== "") {
-        // Filter by title, author, and genre
-        result = books.filter((book) => {
-          return book.title.toLowerCase().includes(title.toLowerCase()) &&
-            book.author === author &&
-            book.genres.includes(genre);
-        });
-      } else if (author !== "any" && genre !== "any") {
-        // Filter by author and genre only
-        result = books.filter((book) => {
-          return book.author === author &&
-            book.genres.includes(genre);
-        });
-      } else if (author !== "any") {
-        // Filter by author only
-        result = books.filter((book) => {
-          return book.author === author;
-        });
-      } else if (genre !== "any") {
-        // Filter by genre only
-        result = books.filter((book) => {
-          return book.genres.includes(genre);
-        });
-      } else {
-        // Filter by title only
-        result = books.filter((book) => {
-          return book.title.toLowerCase().includes(title.toLowerCase());
-        });
-      }
-});
-
-
-// List item 
-
-dataListItems.addEventListener("click", (event)=> {
-  
-    // pathArray shows all the dom elements that event passed from target to root 
+// Event 
+dataListItems.click() {
     pathArray = Array.from(event.path || event.composedPath())
 
     // active will store the book object 
