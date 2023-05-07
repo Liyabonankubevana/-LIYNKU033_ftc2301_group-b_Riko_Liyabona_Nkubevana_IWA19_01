@@ -26,8 +26,10 @@
       rel="stylesheet"
     />
 
-    <script src="./scripts.js"></script>
-    <script src="./data.js"></script>
+    <!-- Insert type and defer -->
+    <script src="./scripts.js" defer type="module"></script>
+    
+
   </head>
   <body>
 
@@ -153,7 +155,8 @@
 
         <div class="overlay__row">
           <button class="overlay__button" data-settings-cancel>Cancel</button>
-          <button class="overlay__button overlay__button_primary" type="submit" form="settings">Save</button>
+          <!-- Need to add element data-setting-save in order to make a click on the js -->
+          <button class="overlay__button overlay__button_primary" data-settings-save type="submit" form="settings">Save</button>
         </div>
       </div>
     </dialog>

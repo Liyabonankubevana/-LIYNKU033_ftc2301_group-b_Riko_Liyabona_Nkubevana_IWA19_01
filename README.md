@@ -39,3 +39,7 @@ As a user, I want to find books based on specific text phrases so that I don’t
 As a user, I want to filter books by author so that I can find books to read by authors that I enjoy.
 As a user, I want to filter books by genre so that I can find books to read in genres that I enjoy.
 As a user, I want to toggle between dark and light modes so that I can use the app comfortably at night.
+
+Link to my presentation slide:
+
+https://docs.google.com/presentation/d/1nrRXztVHtohvMQTQUKOLYyqlVPwNFFvVAqHNHvePhsk/edit?usp=sharing
