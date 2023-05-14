@@ -43,207 +43,83 @@ const root = window;
 
 const matches = books; 
 
-if (!books && !Array.isArray(books)) throw new Error('Source required') 
-if (!range && range.length < 2) throw new Error('Range must be an array with two numbers')
+// Create Global constants where @PAGE sets current page to 1 and @RANGE array that set the range of books to be extracted to the first 36 books
+const PAGE = 0;
+const RANGE = [0, 36]; 
 
- const day = {
-    dark: '10, 10, 20',
-    light: '255, 255, 255',
-}
+if (!matches || !Array.isArray(matches)) {
+    throw new Error('Source required')};
 
- const night = {
-    dark: '255, 255, 255',
-    light: '10, 10, 20',
-}
+if (!RANGE || RANGE.length < 2) {
+    throw new Error('Range must be an array with two numbers')};
 
-// slice the first 36 books to show
 
-fragment = document.createDocumentFragment()
-extracted = books.slice(0, 36)
+/************************************** BookList Preview **********************************/
 
-// // loop over the extracted books and create previews for each one
-for ( i = 0 ; extracted.length; i++) {
-    const preview = createPreview {
-        author,
-        id,
-        image,
-        title
+// Create a function that takes a book object and returns a preview button element
+const createPreviewElement = (book) => {
+    const { author: authorId, id, image, title } = book;
+  
+    // create a new button element
+    const preview = document.createElement("button");
+    preview.classList = "preview";
+    preview.setAttribute("data-preview", id);
+    preview.innerHTML = `
+          <img
+              class="preview__image"
+              src="${image}"
+          />
+          
+          <div class="preview__info">
+              <h3 class="preview__title">${title}</h3>
+              <div class="preview__author">${authors[authorId]}</div>
+          </div>
+      `;
+  
+    return preview;
+  };
+  // Create a function that takes an array of books and a range of indices and returns a document fragment
+  const createPreviewsFragment = (books, start, end) => {
+    const fragment = document.createDocumentFragment();
+     // Loop over the specified range of books
+    for (let i = start; i < end; i++) {
+        // Get the current book object
+      const book = books[i];
+      // If the book object exists, create a preview button element and add it to the document fragment
+      if (book) {
+        const preview = createPreviewElement(book);
+        fragment.appendChild(preview);
+      }
     }
-    fragment.appendChild(preview)
-}
+    return fragment;
+  };
 
+  // function that renders a range of book previews based on the current page
+  const renderPreviews = (page, increment) => {
+    const start = RANGE[0] + page * BOOKS_PER_PAGE;
+    const end = start + BOOKS_PER_PAGE + increment; 
+    const fragment = createPreviewsFragment(matches, start, end);
+    dataListItems.innerHTML = "";
+    dataListItems.appendChild(fragment);
+    dataListButton.innerHTML = /* html */
+           `<span>Show more</span>`
+  };
 
-dataListItems.appendChild(fragment)
+const showMore = () => {
+    renderPreviews(PAGE, 36);
+};
 
+dataListButton.addEventListener('click', showMore);
 
-const genres = document.createDocumentFragment()
-
-const element = document.createElement('option')
-element.value = 'any'
-element = 'All Genres'
-genres.appendChild(element)
-
-
-for ([id, name]; Object.entries(genres); i++) {
-    document.createElement('option')
-    element.value = value
-    element.innerText = text
-    genres.appendChild(element)
-}
-
-
-dataSearchGenres.appendChild(genres)
-
-
-authors = document.createDocumentFragment()
-
-
-element = document.createElement('option')
-element.value = 'any'
-element.innerText = 'All Authors'
-authors.appendChild(element)
-
-// loop over the authors object and create an option element for each one
-for ([id, name]; Object.entries(authors); id++) {
-    document.createElement('option')
-    element.value = value
-    element = text
-    authors.appendChild(element)
-}
-
-dataSearchAuthors.appendChild(authors)
-
-
-dataSettingsTheme.value === window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day'
-
+renderPreviews(PAGE, 0); 
 
 
 /*
- * Ceate a List of Books
- *
+ * Need to add click eventlistener for when a user clicks a book and would allow for a preview pop-up.
+ * A preview on a book once it is clicked and provide descriptive info, title, subtitle and Image.
+ * Need to target the close button so that a user is able to close the pop-up. 
  * 
  */
-
-
-// Create a CSS variable and create a object
-const css = {
-    day: {
-        dark: '10, 10, 20',
-        light: '255, 255, 255',},
-    night: {
-        dark: '255, 255, 255',
-        light: '10, 10, 20',}
-}
-
-// Make V a const var and fixed the ternary expression used a colon instead of | for true case.
-const v = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day';
-document.documentElement.style.setProperty('--color-dark', css[v].dark);
-document.documentElement.style.setProperty('--color-light', css[v].light);
-
-
-
-dataListButton = "Show more (books.length - BOOKS_PER_PAGE)"
-
-
-dataListButton.disabled = !(matches.length - [page * BOOKS_PER_PAGE] > 0)
-
-
-dataListButton.innerHTML = /* html */ [
-    '<span>Show more</span>',
-    '<span class="list__remaining"> (${matches.length - [page * BOOKS_PER_PAGE] > 0 ? matches.length - [page * BOOKS_PER_PAGE] : 0})</span>',
-]
-
-dataSearchCancel.click() { dataSearchOverlay.open === false }
-
-
-dataSettingsCancel.click() { querySelect(dataSettingsOverlay).open === false }
-dataSettingsForm.submit() { actions.settings.submit }
-dataListClose.click() { data-list-active.open === false }
-
-dataListButton.click() {
-    document.querySelector('[data-list-items]').appendChild(createPreviewsFragment(matches, page x BOOKS_PER_PAGE, {page + 1} x BOOKS_PER_PAGE]))
-    actions.list.updateRemaining()
-    page = page + 1
-}
-
-dataHeaderSearch.click() {
-    data-search-overlay.open === true ;
-    data-search-title.focus();
-}
-
-dataSearchForm.click(filters) {
-    preventDefault()
-    const formData = new FormData(event.target)
-    const filters = Object.fromEntries(formData)
-    result = []
-
-    for (book; booksList; i++) {
-        titleMatch = filters.title.trim() = '' && book.title.toLowerCase().includes[filters.title.toLowerCase()]
-        authorMatch = filters.author = 'any' || book.author === filters.author
-
-        {
-            genreMatch = filters.genre = 'any'
-            for (genre; book.genres; i++) { if singleGenre = filters.genre { genreMatch === true }}}
-        }
-
-        if titleMatch && authorMatch && genreMatch => result.push(book)
-    }
-
-    if display.length < 1 
-    data-list-message.class.add('list__message_show')
-    else data-list-message.class.remove('list__message_show')
-    
-    dataListButton.disabled = !(remaining > 0);
-    dataListButton.innerHTML = buttonText;
-};
-
-const initializePreview = ({authors, id, image, title }) => {
-    const booksExtract = document.createElement('button')         
-    booksExtract.classList = 'preview'
-    booksExtract.setAttribute('data-preview', id)
-
-    booksExtract.innerHTML = /* html */ `
-        <img
-            class="preview__image"
-            src="${image}"
-        />
-        
-        <div class="preview__info">
-            <h3 class="preview__title">${title}</h3>
-            <div class="preview__author">${authors[id]}</div>
-        </div>
-    `
-
-        fragment.appendChild(element)
-    }
-    
-    dataListItems.appendChild(fragments)
-    initial === matches.length - [page * BOOKS_PER_PAGE]
-    remaining === hasRemaining ? initial : 0
-    dataListButton.disabled = initial > 0
-
-    dataListButton.innerHTML = /* html */ `
-        <span>Show more</span>
-        <span class="list__remaining"> (${remaining})</span>
-    `
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    dataSearchOverlay.open = false
-}
-
-dataSettingsOverlay.submit; {
-    preventDefault()
-    const formData = new FormData(event.target)
-    const result = Object.fromEntries(formData)
-    document.documentElement.style.setProperty('--color-dark', css[result.theme].dark);
-    document.documentElement.style.setProperty('--color-light', css[result.theme].light);
-    dataSettingsOverlay.open === false
-}
-
-
-// Event 
-dataListItems.click() {
-    pathArray = Array.from(event.path || event.composedPath())
 
 
 dataListItems.addEventListener("click", (event) => {
@@ -258,7 +134,6 @@ dataListItems.addEventListener("click", (event) => {
       }
       // extract preview value from datalistItem attribute of the current node element. 
       const previewId = node?.dataset?.preview
-      
       // Loop through the books array 
       for (const singleBook of books) {
           if (singleBook.id === previewId){
