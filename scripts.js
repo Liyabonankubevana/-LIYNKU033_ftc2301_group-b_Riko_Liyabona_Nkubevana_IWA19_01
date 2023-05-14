@@ -25,7 +25,7 @@ const dataListClose = document.querySelector('[data-list-close]');
 
 //  Dom elements for the search 
 const dataSearchOverlay = document.querySelector('[data-search-overlay]');
-const datasearchButton = document.querySelector("button.overlay__button.overlay__button_primary[form='search']");
+const datasearchButton = document.querySelector("[data-search-button]");
 const dataSearchForm = document.querySelector('[data-search-form]');
 const dataSearchTitle = document.querySelector('[data-search-title]');
 const dataSearchGenres = document.querySelector('[data-search-genres]');
@@ -175,15 +175,6 @@ dataSearchCancel.addEventListener('click', () => {
     dataSearchForm.reset();
 }); 
 
-/*
- * Need to ensure that the input put into the datasearchtitle is saved into the localstorage
- * Ensure that it is included in the searchbutton logic so that it is functional when a user inputs a title
- * 
- * 
- */
-
-
-
 
 /*
  * Need to make the genre dropdown  that will allow users to choose a genre they want
@@ -249,39 +240,33 @@ dataSearchAuthors.addEventListener('change', anotherLocalStorage);
 // Should be able to iterate through when the title, genre and author parameters have been chosen
 // Possible create multiple if else conditions? 
 
+
 datasearchButton.addEventListener('click', (event) => {
-    event.preventDefault();
-    
-    const authorChoice = anotherLocalStorage.getItem('Authors');
-    const genreChoice = updateLocalStorage.getItem('Genre'); 
-    const formData = new FormData(authorChoice, genreChoice);
-    const filters = Object.fromEntries(formData);
+
+  const title = dataSearchTitle.value;
+  const authorChoice = localStorage.getItem('Author');
+  const genreChoice = localStorage.getItem('Genre');
   
-    const result = booksList.filter((book) => {
-      const titleMatch = filters.title.trim() === '' || book.title.toLowerCase().includes(filters.title.toLowerCase());
-      const authorMatch = filters.author === 'any' || book.author === filters.author;
-      const genreMatch = filters.genre === 'any' || book.genres.includes(filters.genre);
-  
-      return titleMatch && authorMatch && genreMatch;
-    });
-  
-    const display = document.querySelector('#search-result');
-    display.innerHTML = '';
-  
-    if (result.length < 1) {
-      const message = document.createElement('p');
-      message.innerText = 'No results found.';
-      display.appendChild(message);
-    } else {
-      result.forEach((book) => {
-        const item = document.createElement('li');
-        item.innerText = `${book.title}${book.author}`;
-        display.appendChild(item);
-      });
-    }
+  // filter the books based on the user's selections
+  const filteredBooks = books.filter((book) => {
+    const TitleMatch = book.title.toLowerCase().includes(title.toLowerCase());
+    const AuthorMatch = (authorChoice === 'any') || (book.author === authorChoice);
+    const GenreMatch = (genreChoice === 'any') || (book.genres === genreChoice);
+
+    return TitleMatch && AuthorMatch && GenreMatch;
   });
 
+  // To display on the webpage create an empty container
+  dataListItems.innerHTML = '';
 
+  // create a new element for each filtered book and append it to the container
+  filteredBooks.forEach((book) => {
+    const bookElement = document.createElement('div');
+    bookElement.innerHTML = `<h2>${book.title}</h2><p>Author: ${book.author}, Genre: ${book.genres}</p>`;
+    dataListItems.appendChild(bookElement);
+    });
+
+});
 
 
 
