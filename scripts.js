@@ -78,6 +78,7 @@ const createPreviewElement = (book) => {
   
     return preview;
   };
+  
   // Create a function that takes an array of books and a range of indices and returns a document fragment
   const createPreviewsFragment = (books, start, end) => {
     const fragment = document.createDocumentFragment();
