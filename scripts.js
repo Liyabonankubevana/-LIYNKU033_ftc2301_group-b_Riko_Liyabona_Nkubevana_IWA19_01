@@ -250,8 +250,8 @@ datasearchButton.addEventListener('click', (event) => {
   // filter the books based on the user's selections
   const filteredBooks = books.filter((book) => {
     const TitleMatch = book.title.toLowerCase().includes(title.toLowerCase());
-    const AuthorMatch = (authorChoice === 'any') || (book.author === authorChoice);
-    const GenreMatch = (genreChoice === 'any') || (book.genres === genreChoice);
+    const AuthorMatch = book.author === authorChoice;
+    const GenreMatch = book.genres === genreChoice;
 
     return TitleMatch && AuthorMatch && GenreMatch;
   });
