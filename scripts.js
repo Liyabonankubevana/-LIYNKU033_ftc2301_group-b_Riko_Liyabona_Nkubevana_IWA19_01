@@ -254,16 +254,6 @@ datasearchButton.addEventListener('click', (event) => {
     
     const authorChoice = anotherLocalStorage.getItem('Authors');
     const genreChoice = updateLocalStorage.getItem('Genre'); 
-    const formData = new FormData(authorChoice, genreChoice);
-    const filters = Object.fromEntries(formData);
-  
-    const result = booksList.filter((book) => {
-      const titleMatch = filters.title.trim() === '' || book.title.toLowerCase().includes(filters.title.toLowerCase());
-      const authorMatch = filters.author === 'any' || book.author === filters.author;
-      const genreMatch = filters.genre === 'any' || book.genres.includes(filters.genre);
-  
-      return titleMatch && authorMatch && genreMatch;
-    });
   });
 
 
