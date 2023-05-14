@@ -264,21 +264,6 @@ datasearchButton.addEventListener('click', (event) => {
   
       return titleMatch && authorMatch && genreMatch;
     });
-  
-    const display = document.querySelector('#search-result');
-    display.innerHTML = '';
-  
-    if (result.length < 1) {
-      const message = document.createElement('p');
-      message.innerText = 'No results found.';
-      display.appendChild(message);
-    } else {
-      result.forEach((book) => {
-        const item = document.createElement('li');
-        item.innerText = `${book.title}${book.author}`;
-        display.appendChild(item);
-      });
-    }
   });
 
 
