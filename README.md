@@ -4,7 +4,8 @@
 
 IWA19_01: Final Capstone Submission
 Final Capstone Project IWA19
- 
+ ![Screenshot 2023-05-16 223707](https://github.com/Liyabonankubevana/-LIYNKU033_ftc2301_group-b_Riko_Liyabona_Nkubevana_IWA19_01/assets/99335910/54f3456e-fa2d-4f89-9841-7b8216df8170)
+
 
 As a junior JavaScript developer, you have been approached by a small startup called Book Connect. They run a social media platform specifically targeted at book enthusiasts. A basic version of the product was created by another freelance developer.
 
