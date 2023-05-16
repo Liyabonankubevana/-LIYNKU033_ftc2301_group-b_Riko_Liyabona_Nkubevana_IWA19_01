@@ -25,6 +25,20 @@ IWA19_01: Final Capstone Submission
 
 
 
+
+
+##TECH STACK:
+
+
+![html5](https://github.com/Liyabonankubevana/-LIYNKU033_ftc2301_group-b_Riko_Liyabona_Nkubevana_IWA19_01/assets/99335910/17d58273-d5e6-449d-b2c5-4c7d329bd8fa)
+![css3](https://github.com/Liyabonankubevana/-LIYNKU033_ftc2301_group-b_Riko_Liyabona_Nkubevana_IWA19_01/assets/99335910/4aea021c-78ba-4d9e-bf08-7aab8282234c)
+![javascript](https://github.com/Liyabonankubevana/-LIYNKU033_ftc2301_group-b_Riko_Liyabona_Nkubevana_IWA19_01/assets/99335910/3bbac9e4-dfe7-4369-b4c5-ca6f8bcf7f18)
+
+
+
+##BRIEF:
+
+
 As a junior JavaScript developer, you have been approached by a small startup called Book Connect. They run a social media platform specifically targeted at book enthusiasts. A basic version of the product was created by another freelance developer.
 
  
